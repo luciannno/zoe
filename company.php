@@ -33,11 +33,10 @@ $myArray = array();
 </div>
 
 <table>
-<?
+<?php
 if ($result) 
 { 
     // results found 
-    //echo mysqli_num_rows($result);
     echo "<thead><tr><th>Id</th><th>Symbol</th><th>Name</th><th>Sector</th><th>Industry</th>";
     foreach($result as $row) {
         $myArray[] = $row;
