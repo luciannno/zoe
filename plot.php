@@ -151,6 +151,39 @@ print "Company: ".$result['name']. "<BR>";
         var accessor = candlestick.accessor();
 
 	data = data.map(function(d) {
+    indicatorSelection.append("g")
+            .attr("class", "indicator-plot")
+            .attr("clip-path", function(d, i) { return "url(#indicatorClip-" + i + ")"; });
+
+    // Add trendlines and other interactions last to be above zoom pane
+    svg.append('g')
+            .attr("class", "crosshair ohlc");
+
+    svg.append("g")
+            .attr("class", "tradearrow")
+            .attr("clip-path", "url(#ohlcClip)");
+
+    svg.append('g')
+            .attr("class", "crosshair macd");
+
+    svg.append('g')
+            .attr("class", "crosshair rsi");
+
+    svg.append("g")
+            .attr("class", "trendlines analysis")
+            .attr("clip-path", "url(#ohlcClip)");
+    svg.append("g")
+            .attr("class", "supstances analysis")
+            .attr("clip-path", "url(#ohlcClip)");
+
+    d3.select("button").on("click", reset);
+
+    /*d3.csv("data.csv", function(error, data) {*/
+    d3.json("quentin.php?instrument_id=<?echo $instrument_id;?>&t=<?=$t;?>", function(error, data) {
+        var accessor = candlestick.accessor(),
+            indicatorPreRoll = 33;  // Don't show where indicators don't have data
+
+        data = data.map(function(d) {
             return {
                 date: parseDate(d.price_date),
                 open: +d.open_price,
