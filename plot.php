@@ -1,6 +1,7 @@
 <?php
 
 $instrument_id = $_GET['instrument_id'];
+$t = $_GET['t'];
 
 ?>
 <!DOCTYPE html>
@@ -504,7 +505,7 @@ $instrument_id = $_GET['instrument_id'];
     d3.select("button").on("click", reset);
 
     /*d3.csv("data.csv", function(error, data) {*/
-    d3.json("quentin.php?instrument_id=<?echo $instrument_id;?>", function(error, data) {
+    d3.json("quentin.php?instrument_id=<?echo $instrument_id;?>&t=<?=$t;?>", function(error, data) {
         var accessor = candlestick.accessor(),
             indicatorPreRoll = 33;  // Don't show where indicators don't have data
 
